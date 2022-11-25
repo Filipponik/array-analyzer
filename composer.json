@@ -1,0 +1,15 @@
+{
+    "name": "filipponik/array-analyzer",
+    "description": "Array analyzer package",
+    "autoload": {
+        "psr-4": {
+            "Filipponik\\ArrayAnalyzer\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^7.0|^8.0"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^6.1"
+    }
+}
