@@ -2,20 +2,25 @@
 declare(strict_types=1);
 require __DIR__.'/vendor/autoload.php';
 
-$testArray = [
+$testArray = collect([
     [
         'a' => [
             'b' => 1,
             'c' => 3,
         ],
         'd' => 15,
+        'e' => null,
     ],
     [
         'a' => [
             'b' => 2,
         ],
+        'e' => 'kek',
     ],
     [
+        'a' => [
+            'b' => 2,
+        ],
         'e' => 1,
     ],
     [
@@ -25,6 +30,7 @@ $testArray = [
             'c' => 5,
         ],
     ],
-];
+]);
 
-dd($testArray);
+$analyzer = new \Filipponik\ArrayAnalyzer\Analyzer();
+echo $analyzer->analyze($testArray)->toJson();
