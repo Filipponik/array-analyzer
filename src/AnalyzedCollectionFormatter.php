@@ -37,30 +37,4 @@ class AnalyzedCollectionFormatter
     {
         return json_encode($this->toArray());
     }
-
-    public function toHTML(): string
-    {
-        $html = '<table>';
-        $html.= <<<EOF
-<tr>
-<th>Field</th>
-<th>Possible types</th>
-<th>Possible values</th>
-<th>May not be presented</th>
-</tr>
-EOF;
-        foreach ($this->fields as $field) {
-            /** @var AnalyzeField $field */
-            $html .= '<tr>';
-            $html .= "<td>{$field->getName()}</td>";
-            $html .= '<td>' . implode(',', $field->getPossibleTypes()) . '</td>';
-            $html .= '<td>' . implode(',', $field->getPossibleValues()) . '</td>';
-            $html .= "<td>{$field->isMaybeNotPresented()}</td>";
-            $html .= '</tr>';
-        }
-
-        $html .= '</table>';
-
-        return $html;
-    }
 }
