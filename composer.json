@@ -1,6 +1,7 @@
 {
     "name": "filipponik/array-analyzer",
     "description": "Array analyzer package",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Filipponik\\ArrayAnalyzer\\": "src/"
