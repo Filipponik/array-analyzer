@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dce089dcc66c510a42bd42f1a51bb108",
+    "content-hash": "8ae0685497f1e3ee393fd5c754bf41d1",
     "packages": [
         {
             "name": "illuminate/collections",
@@ -485,7 +485,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.4|^8.0"
+        "php": "^7.4|^8.0",
+        "ext-json": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"
