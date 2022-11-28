@@ -6,6 +6,12 @@ namespace Filipponik\ArrayAnalyzer;
 
 class AnalyzeField
 {
+    public const NOT_FOR_RULES_TYPES = [
+        'object',
+        'double',
+        'float',
+    ];
+
     private string $name;
 
     private array $possibleTypes = [];
@@ -82,7 +88,7 @@ class AnalyzeField
 
         // fill possible types
         foreach ($this->possibleTypes as $possibleType) {
-            if ($possibleType !== 'object') {
+            if (!in_array(self::NOT_FOR_RULES_TYPES, $possibleType, true)) {
                 $rules[] = $possibleType === 'NULL' ? 'nullable' : $possibleType;
             }
         }
@@ -90,7 +96,7 @@ class AnalyzeField
         $isAllNumeric = true;
         $isAllUUID = true;
         foreach ($this->possibleValues as $value) {
-            if (is_numeric($value)) {
+            if (!is_numeric($value)) {
                 $isAllNumeric = false;
             }
         }

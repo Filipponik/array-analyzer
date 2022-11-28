@@ -22,7 +22,7 @@ class Analyzer
 
         foreach ($outputCollection->getFields() as $field) {
             foreach ($arrayOfArrays as $item) {
-                if (!in_array($field->getName(), $item, true)) {
+                if (!in_array($field->getName(), array_keys($item), true)) {
                     $field->setMaybeNotPresented(true);
                 } else {
                     $field->addPossibleValue($item[$field->getName()]);
