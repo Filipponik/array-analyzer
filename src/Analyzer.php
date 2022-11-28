@@ -4,35 +4,31 @@ declare(strict_types=1);
 
 namespace Filipponik\ArrayAnalyzer;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-
 class Analyzer
 {
-    public function analyze(Collection $inputCollection)
+    public function analyze(array $arrayOfArrays): AnalyzedCollection
     {
-        $formatter = new \Filipponik\ArrayAnalyzer\AnalyzedCollectionFormatter();
+        $formatter = new AnalyzedCollectionFormatter();
         $outputCollection = new AnalyzedCollection($formatter);
 
         // create keys
-        $inputCollection->each(function (array $item) use ($outputCollection) {
-            foreach ($item as $key => $value) {
+        foreach ($arrayOfArrays as $item) {
+            foreach (array_keys($item) as $key) {
                 $field = new AnalyzeField();
                 $field->setName($key);
                 $outputCollection->pushFieldIfNotPresented($field);
             }
-        });
+        }
 
-        // fill keys with values and types
-        $outputCollection->getFields()->each(function (AnalyzeField $field) use ($inputCollection) {
-            $inputCollection->each(function (array $item) use ($field) {
-                if (!Arr::has($item, $field->getName())) {
+        foreach ($outputCollection->getFields() as $field) {
+            foreach ($arrayOfArrays as $item) {
+                if (!in_array($field->getName(), $item, true)) {
                     $field->setMaybeNotPresented(true);
                 } else {
-                    $field->addPossibleValue(Arr::get($item, $field->getName()));
+                    $field->addPossibleValue($item[$field->getName()]);
                 }
-            });
-        });
+            }
+        }
 
         return $outputCollection;
     }

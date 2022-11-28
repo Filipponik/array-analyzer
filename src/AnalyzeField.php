@@ -65,4 +65,40 @@ class AnalyzeField
     {
         return in_array($value, $this->possibleTypes, true);
     }
+
+    public function getPossibleRulesInString(): string
+    {
+        return implode('|', $this->getPossibleRulesInArray());
+    }
+
+    public function getPossibleRulesInArray(): array
+    {
+        $rules = [];
+
+        // check if value is required
+        if (!$this->maybeNotPresented) {
+            $rules[] = 'required';
+        }
+
+        // fill possible types
+        foreach ($this->possibleTypes as $possibleType) {
+            if ($possibleType !== 'object') {
+                $rules[] = $possibleType === 'NULL' ? 'nullable' : $possibleType;
+            }
+        }
+
+        $isAllNumeric = true;
+        $isAllUUID = true;
+        foreach ($this->possibleValues as $value) {
+            if (is_numeric($value)) {
+                $isAllNumeric = false;
+            }
+        }
+
+        if ($isAllNumeric) {
+            $rules[] = 'numeric';
+        }
+
+        return $rules;
+    }
 }

@@ -4,21 +4,19 @@ declare(strict_types=1);
 
 namespace Filipponik\ArrayAnalyzer;
 
-use Illuminate\Support\Collection;
-
 class AnalyzedCollection
 {
-    private Collection $fields;
+    /** @var array<int, AnalyzeField> */
+    private array $fields = [];
 
     private AnalyzedCollectionFormatter $formatter;
 
     public function __construct(AnalyzedCollectionFormatter $formatter)
     {
         $this->formatter = $formatter;
-        $this->fields = collect();
     }
 
-    public function getFields(): Collection
+    public function getFields(): array
     {
         return $this->fields;
     }
@@ -32,12 +30,12 @@ class AnalyzedCollection
 
     public function findFieldByName(string $name): ?AnalyzeField
     {
-        return $this->fields->get($name);
+        return $this->fields[$name] ?? null;
     }
 
     public function pushField(AnalyzeField $field): void
     {
-        $this->fields->put($field->getName(), $field);
+        $this->fields[$field->getName()] = $field;
     }
 
     public function toArray(): array
@@ -45,13 +43,13 @@ class AnalyzedCollection
         return $this->format()->toArray();
     }
 
-    private function format(): AnalyzedCollectionFormatter
-    {
-        return $this->formatter->setFields($this->fields);
-    }
-
     public function toJson(): string
     {
         return $this->format()->toJson();
+    }
+
+    private function format(): AnalyzedCollectionFormatter
+    {
+        return $this->formatter->setFields($this->fields);
     }
 }

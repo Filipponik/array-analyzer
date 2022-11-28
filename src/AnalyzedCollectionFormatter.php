@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Filipponik\ArrayAnalyzer;
 
-use Illuminate\Support\Collection;
-
 class AnalyzedCollectionFormatter
 {
-    private Collection $fields;
+    /** @var array<int, AnalyzeField> */
+    private array $fields;
 
-    public function setFields(Collection $fields): self
+    public function setFields(array $fields): self
     {
         $this->fields = $fields;
 
@@ -21,13 +20,12 @@ class AnalyzedCollectionFormatter
     {
         $arr = [];
         foreach ($this->fields as $fieldName => $field) {
-            /** @var AnalyzeField $field */
-            $preparedArr['name'] = $fieldName;
-            $preparedArr['maybeNotPresented'] = $field->isMaybeNotPresented();
-            $preparedArr['possibleTypes'] = $field->getPossibleTypes();
-            $preparedArr['possibleValues'] = $field->getPossibleValues();
-
-            $arr[$fieldName] = $preparedArr;
+            $arr[$fieldName] = [
+                'possibleRules' => $field->getPossibleRulesInString(),
+                'maybeNotPresented' => $field->isMaybeNotPresented(),
+                'possibleTypes' => $field->getPossibleTypes(),
+                'possibleValues' => $field->getPossibleValues(),
+            ];
         }
 
         return $arr;
