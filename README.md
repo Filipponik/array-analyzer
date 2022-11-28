@@ -21,5 +21,8 @@ $arrayOfArrays = [
 ];
 
 $analyzer = new \Filipponik\ArrayAnalyzer\Analyzer();
-$analyzer = $analyzer->analyze($arrayOfArrays);
+$analyzedCollection = $analyzer->analyze($arrayOfArrays);
+
+$result = $analyzedCollection->toArray(); // analyzing result
+$rules = $analyzer->toLaravelRules(); // possible laravel validation rules
 ```

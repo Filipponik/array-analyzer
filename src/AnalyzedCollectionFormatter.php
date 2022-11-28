@@ -21,11 +21,20 @@ class AnalyzedCollectionFormatter
         $arr = [];
         foreach ($this->fields as $fieldName => $field) {
             $arr[$fieldName] = [
-                'possibleRules' => $field->getPossibleRulesInString(),
                 'maybeNotPresented' => $field->isMaybeNotPresented(),
                 'possibleTypes' => $field->getPossibleTypes(),
                 'possibleValues' => $field->getPossibleValues(),
             ];
+        }
+
+        return $arr;
+    }
+
+    public function toLaravelRules(): array
+    {
+        $arr = [];
+        foreach ($this->fields as $fieldName => $field) {
+            $arr[$fieldName] = $field->getPossibleRulesInString();
         }
 
         return $arr;
