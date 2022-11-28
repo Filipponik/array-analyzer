@@ -40,8 +40,8 @@ class AnalyzedCollectionFormatter
         return $arr;
     }
 
-    public function toJson(): string
+    public function toJson(int $flags = 0): string
     {
-        return json_encode($this->toArray());
+        return json_encode($this->toArray(), $flags);
     }
 }
