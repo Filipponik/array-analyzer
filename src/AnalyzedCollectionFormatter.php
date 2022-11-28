@@ -27,7 +27,7 @@ class AnalyzedCollectionFormatter
             $preparedArr['possibleTypes'] = $field->getPossibleTypes();
             $preparedArr['possibleValues'] = $field->getPossibleValues();
 
-            $arr[] = $preparedArr;
+            $arr[$fieldName] = $preparedArr;
         }
 
         return $arr;
