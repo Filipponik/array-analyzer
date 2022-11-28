@@ -94,7 +94,6 @@ class AnalyzeField
         }
 
         $isAllNumeric = true;
-        $isAllUUID = true;
         foreach ($this->possibleValues as $value) {
             if (!is_numeric($value)) {
                 $isAllNumeric = false;
