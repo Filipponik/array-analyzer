@@ -88,7 +88,7 @@ class AnalyzeField
 
         // fill possible types
         foreach ($this->possibleTypes as $possibleType) {
-            if (!in_array(self::NOT_FOR_RULES_TYPES, $possibleType, true)) {
+            if (!in_array($possibleType, self::NOT_FOR_RULES_TYPES, true)) {
                 $rules[] = $possibleType === 'NULL' ? 'nullable' : $possibleType;
             }
         }
