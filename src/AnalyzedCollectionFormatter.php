@@ -30,11 +30,21 @@ class AnalyzedCollectionFormatter
         return $arr;
     }
 
-    public function toLaravelRules(): array
+    public function toLaravelRulesStrings(): array
     {
         $arr = [];
         foreach ($this->fields as $fieldName => $field) {
             $arr[$fieldName] = $field->getPossibleRulesInString();
+        }
+
+        return $arr;
+    }
+
+    public function toLaravelRulesArrays(): array
+    {
+        $arr = [];
+        foreach ($this->fields as $fieldName => $field) {
+            $arr[$fieldName] = $field->getPossibleRulesInArray();
         }
 
         return $arr;

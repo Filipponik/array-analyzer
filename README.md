@@ -24,5 +24,6 @@ $analyzer = new \Filipponik\ArrayAnalyzer\Analyzer();
 $analyzedCollection = $analyzer->analyze($arrayOfArrays);
 
 $result = $analyzedCollection->toArray(); // analyzing result
-$rules = $analyzer->toLaravelRules(); // possible laravel validation rules
+$rules = $analyzer->toLaravelRulesStrings(); // possible laravel validation rules in format 'required|string'
+$rules = $analyzer->toLaravelRulesArrays(); // possible laravel validation rules in format ['required', 'string']
 ```
