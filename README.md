@@ -23,7 +23,12 @@ $arrayOfArrays = [
 $analyzer = new \Filipponik\ArrayAnalyzer\Analyzer();
 $analyzedCollection = $analyzer->analyze($arrayOfArrays);
 
-$result = $analyzedCollection->toArray(); // analyzing result
+$result = $analyzedCollection->toArray(); // format result to array
+$result = $analyzedCollection->toJson(); // format result to JSON
+
 $rules = $analyzer->toLaravelRulesStrings(); // possible laravel validation rules in format 'required|string'
 $rules = $analyzer->toLaravelRulesArrays(); // possible laravel validation rules in format ['required', 'string']
+
+// You may also add prefix for rules (['result' => 'required|array', 'result.*.id' => 'required|integer'])
+$rules = $analyzer->toLaravelRulesStrings('result');
 ```

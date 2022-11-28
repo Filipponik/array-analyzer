@@ -43,14 +43,14 @@ class AnalyzedCollection
         return $this->format()->toArray();
     }
 
-    public function toLaravelRulesStrings(): array
+    public function toLaravelRulesStrings(?string $prefix = null): array
     {
-        return $this->format()->toLaravelRulesStrings();
+        return $this->format()->toLaravelRulesStrings($prefix);
     }
 
-    public function toLaravelRulesArrays(): array
+    public function toLaravelRulesArrays(?string $prefix = null): array
     {
-        return $this->format()->toLaravelRulesArrays();
+        return $this->format()->toLaravelRulesArrays($prefix);
     }
 
     public function toJson(): string

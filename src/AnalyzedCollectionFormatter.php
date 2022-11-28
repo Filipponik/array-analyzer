@@ -30,24 +30,36 @@ class AnalyzedCollectionFormatter
         return $arr;
     }
 
-    public function toLaravelRulesStrings(): array
+    public function toLaravelRulesStrings(?string $prefix = null): array
     {
-        $arr = [];
+        $arr = $prefix === null
+            ? []
+            : [$prefix => 'required|array'];
+
         foreach ($this->fields as $fieldName => $field) {
-            $arr[$fieldName] = $field->getPossibleRulesInString();
+            $arr[$this->fiendName($field->getName(), $prefix)] = $field->getPossibleRulesInString();
         }
 
         return $arr;
     }
 
-    public function toLaravelRulesArrays(): array
+    public function toLaravelRulesArrays(?string $prefix = null): array
     {
-        $arr = [];
+        $arr = $prefix === null
+            ? []
+            : [$prefix => ['required', 'array']];
         foreach ($this->fields as $fieldName => $field) {
-            $arr[$fieldName] = $field->getPossibleRulesInArray();
+            $arr[$this->fiendName($field->getName(), $prefix)] = $field->getPossibleRulesInArray();
         }
 
         return $arr;
+    }
+
+    private function fiendName(string $fieldName, ?string $prefix = null): string
+    {
+        return $prefix !== null
+            ? $prefix . '.*.' . $fieldName
+            : $fieldName;
     }
 
     public function toJson(int $flags = 0): string
